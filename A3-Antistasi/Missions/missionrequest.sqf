@@ -14,7 +14,7 @@ _exists = false;
 _silencio = false;
 if (count _this > 1) then {_silencio = true};
 
-if ([_typeX] call BIS_fnc_taskExists) exitWith {if (!_silencio) then {[petros,"globalChat","I already gave you a mission of this type"] remoteExec ["A3A_fnc_commsMP",theBoss]}};
+// if ([_typeX] call BIS_fnc_taskExists) exitWith {if (!_silencio) then {[petros,"globalChat","I already gave you a mission of this type"] remoteExec ["A3A_fnc_commsMP",theBoss]}};
 
 if ([_typeX] call BIS_fnc_taskExists) then 
 {
@@ -47,16 +47,16 @@ if ([_typeX] call BIS_fnc_taskExists) then
 		};
 		// If mission file didn't delete itself, try it the hard way.
 		if([_typeX] call BIS_fnc_taskExists) then {
-			_nul = [0,_typeX] spawn A3A_fnc_borrarTask;
+			[0,_typeX] spawn A3A_fnc_deleteTask;
 		};
 	} catch {
 		[format ["Error deleting task: %1 => %2", _typeX, _exception], _debugMode] call A3A_fnc_debug;
 		try {
 			if([_typeX] call BIS_fnc_taskExists) then {
-				_nul = [0,_typeX] spawn A3A_fnc_borrarTask;
+				 [0,_typeX] spawn A3A_fnc_deleteTask;
 			};
 		} catch {
-			[format ["Error calling A3A_fnc_borrarTask task: %1 => %2", _typeX, _exception], _debugMode] call A3A_fnc_debug;
+			[format ["Error calling A3A_fnc_deleteTask task: %1 => %2", _typeX, _exception], _debugMode] call A3A_fnc_debug;
 		};
 	};
 };
@@ -196,7 +196,7 @@ if (_typeX == "LOG") then
 					// 	{
 					// 	_potentials pushBack _siteX;
 					// 	};
-					// }
+					}
 				else
 					{
 					if ([_pos,_posbase] call A3A_fnc_isTheSameIsland) then {_potentials pushBack _siteX};

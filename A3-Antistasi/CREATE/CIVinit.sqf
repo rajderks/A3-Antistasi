@@ -45,7 +45,7 @@ _EHkilledIdx = _unit addEventHandler
 		};
 		if (_victim == _killer) then
 		{
-			_nul = [-1,-1,getPos _victim] remoteExec ["A3A_fnc_citySupportChange",2];
+			//_nul = [-1,-1,getPos _victim] remoteExec ["A3A_fnc_citySupportChange",2];
 		}
 		else
 		{

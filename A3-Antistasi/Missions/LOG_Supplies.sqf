@@ -118,10 +118,10 @@ try {
 							_countX = 120*_bonus;//120
 							if (((_truckX distance _positionX > 40) or (not([80,1,_truckX,teamPlayer] call A3A_fnc_distanceUnits)) or ({(side _x == Occupants) and (_x distance _truckX < 50)} count allUnits != 0)) and (alive _truckX)) then {{[petros,"hint","Don't get the truck far from the city center, and stay close to it, and clean all BLUFOR presence in the surroundings or count will restart"] remoteExec ["A3A_fnc_commsMP",_x]} forEach ([100,0,_truckX,teamPlayer] call A3A_fnc_distanceUnits)};
 								waitUntil {
+									sleep 1; 
 									["LOG_Supplies.sqf: resetting distance waitUntil", _debugMode] call A3A_fnc_debug; 
 									if (missionNamespace getVariable ["taskTerminateLogBox", false]) exitWith { true };
 									((_truckX distance _positionX < 40) and ([80,1,_truckX,teamPlayer] call A3A_fnc_distanceUnits) and ({(side _x == Occupants) and (_x distance _truckX < 50)} count allUnits == 0)) or (dateToNumber date > _dateLimitNum) or (isNull _truckX)
-									sleep 1; 
 								};
 							};
 						if (_countX < 1) exitWith {};
