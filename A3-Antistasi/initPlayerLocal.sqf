@@ -591,40 +591,40 @@ else
 		};
 	};
 
-_textX = [];
+// _textX = [];
 
-if ((hasTFAR) or (hasACRE)) then
-	{
-	_textX = ["TFAR or ACRE Detected\n\nAntistasi detects TFAR or ACRE in the server config.\nAll players will start with addon default radios.\nDefault revive system will shut down radios while players are inconscious.\n\n"];
-	};
-if (hasACE) then
-	{
-	_textX = _textX + ["ACE 3 Detected\n\nAntistasi detects ACE modules in the server config.\nACE items added to arsenal and ammoboxes. Default AI control is disabled\nIf ACE Medical is used, default revive system will be disabled.\nIf ACE Hearing is used, default earplugs will be disabled."];
-	};
-if (hasRHS) then
-	{
-	_textX = _textX + ["RHS Detected\n\nAntistasi detects RHS in the server config.\nDepending on the modules will have the following effects.\n\nAFRF: Replaces CSAT by a mix of russian units\n\nUSAF: Replaces NATO by a mix of US units\n\nGREF: Recruited AI will count with RHS as basic weapons, replaces FIA with Chdk units. Adds some civilian trucks"];
-	};
-if (hasFFAA) then
-	{
-	_textX = _textX + ["FFAA Detected\n\nAntistasi detects FFAA in the server config.\nFIA Faction will be replaced by Spanish Armed Forces"];
-	};
+// if ((hasTFAR) or (hasACRE)) then
+// 	{
+// 	_textX = ["TFAR or ACRE Detected\n\nAntistasi detects TFAR or ACRE in the server config.\nAll players will start with addon default radios.\nDefault revive system will shut down radios while players are inconscious.\n\n"];
+// 	};
+// if (hasACE) then
+// 	{
+// 	_textX = _textX + ["ACE 3 Detected\n\nAntistasi detects ACE modules in the server config.\nACE items added to arsenal and ammoboxes. Default AI control is disabled\nIf ACE Medical is used, default revive system will be disabled.\nIf ACE Hearing is used, default earplugs will be disabled."];
+// 	};
+// if (hasRHS) then
+// 	{
+// 	_textX = _textX + ["RHS Detected\n\nAntistasi detects RHS in the server config.\nDepending on the modules will have the following effects.\n\nAFRF: Replaces CSAT by a mix of russian units\n\nUSAF: Replaces NATO by a mix of US units\n\nGREF: Recruited AI will count with RHS as basic weapons, replaces FIA with Chdk units. Adds some civilian trucks"];
+// 	};
+// if (hasFFAA) then
+// 	{
+// 	_textX = _textX + ["FFAA Detected\n\nAntistasi detects FFAA in the server config.\nFIA Faction will be replaced by Spanish Armed Forces"];
+// 	};
 
-if (hasTFAR or hasACE or hasRHS or hasACRE or hasFFAA) then
-	{
-	[_textX] spawn
-		{
-		sleep 0.5;
-		_textX = _this select 0;
-		"Integrated Mods Detected" hintC _textX;
-		hintC_arr_EH = findDisplay 72 displayAddEventHandler ["unload", {
-			0 = _this spawn {
-				_this select 0 displayRemoveEventHandler ["unload", hintC_arr_EH];
-				hintSilent "";
-			};
-			}];
-		};
-	};
+// if (hasTFAR or hasACE or hasRHS or hasACRE or hasFFAA) then
+// 	{
+// 	[_textX] spawn
+// 		{
+// 		sleep 0.5;
+// 		_textX = _this select 0;
+// 		"Integrated Mods Detected" hintC _textX;
+// 		hintC_arr_EH = findDisplay 72 displayAddEventHandler ["unload", {
+// 			0 = _this spawn {
+// 				_this select 0 displayRemoveEventHandler ["unload", hintC_arr_EH];
+// 				hintSilent "";
+// 			};
+// 			}];
+// 		};
+// 	};
 waituntil {!isnull (finddisplay 46)};
 gameMenu = (findDisplay 46) displayAddEventHandler ["KeyDown",A3A_fnc_keys];
 //removeAllActions boxX;

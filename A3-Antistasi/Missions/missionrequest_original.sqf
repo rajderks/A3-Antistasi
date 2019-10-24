@@ -2,8 +2,6 @@ if (!isServer) exitWith {};
 
 private ["_typeX","_posbase","_potentials","_sites","_exists","_siteX","_pos","_city"];
 
-_debugMode = 1;
-
 _typeX = _this select 0;
 
 _posbase = getMarkerPos respawnTeamPlayer;
@@ -15,51 +13,6 @@ _silencio = false;
 if (count _this > 1) then {_silencio = true};
 
 if ([_typeX] call BIS_fnc_taskExists) exitWith {if (!_silencio) then {[petros,"globalChat","I already gave you a mission of this type"] remoteExec ["A3A_fnc_commsMP",theBoss]}};
-
-if ([_typeX] call BIS_fnc_taskExists) then 
-{
-	try {
-		[format ["Task exists: %1", _typeX], _debugMode] call A3A_fnc_debug;
-		if(_typeX == "LOG") then {
-			_logType = missionNamespace getVariable "LOG_TYPE";
-			[format ["Task == %1, type == %2", _typeX, _logType], _debugMode] call A3A_fnc_debug;
-			if (_typeX == "LOG" && _logType == "BOX" ) then {
-				missionNamespace setVariable ["taskTerminateLogBox", true, true];
-				[format ["Task == %1, type == %2: waiting until terminated", _typeX, _logType], _debugMode] call A3A_fnc_debug;
-				waitUntil {  not(missionNamespace getVariable "taskTerminateLogBox" ); };
-				[format ["Task == %1, type == %2: terminated, requesting new mission", _typeX, _logType], _debugMode] call A3A_fnc_debug;
-			};
-			// if (_typeX == "LOG" && _logType == "AMMO" ) then {
-			// 	["_target is TRUCK; deleting!", "systemchat"] call BIS_fnc_MP;
-			// 	_targetTruck = missionNamespace getVariable "LOG_AMMO_TRUCK";
-			// 	_targetGroup1 = missionNamespace getVariable "LOG_AMMO_GROUP1";
-			// 	_targetGroup2 = missionNamespace getVariable "LOG_AMMO_GROUP2";
-			// 	_targetMarker = missionNamespace getVariable "LOG_AMMO_MARKER";
-				
-			// 	{deleteVehicle _x} forEach units _targetGroup1;
-			// 	deleteGroup _targetGroup1;
-			// 	{deleteVehicle _x} forEach units _targetGroup2;
-			// 	deleteGroup _targetGroup2;
-			// 	deleteMarker _targetMarker;
-			// 	waitUntil {sleep 1; not ([300,1,_targetTruck,"GREENFORSpawn"] call A3A_fnc_distanceUnits)};
-			// 	deleteVehicle _target;
-			// };
-		};
-		// If mission file didn't delete itself, try it the hard way.
-		if([_typeX] call BIS_fnc_taskExists) then {
-			_nul = [0,_typeX] spawn A3A_fnc_borrarTask;
-		};
-	} catch {
-		[format ["Error deleting task: %1 => %2", _typeX, _exception], _debugMode] call A3A_fnc_debug;
-		try {
-			if([_typeX] call BIS_fnc_taskExists) then {
-				_nul = [0,_typeX] spawn A3A_fnc_borrarTask;
-			};
-		} catch {
-			[format ["Error calling A3A_fnc_borrarTask task: %1 => %2", _typeX, _exception], _debugMode] call A3A_fnc_debug;
-		};
-	};
-};
 
 if (_typeX == "AS") then
 	{
@@ -170,7 +123,7 @@ if (_typeX == "LOG") then
 	{
 	_sites = outposts + citiesX - destroyedCities;
 	_sites = _sites select {sidesX getVariable [_x,sideUnknown] != teamPlayer};
-	if (random 100 < 10) then {_sites = _sites + banks};
+	if (random 100 < 20) then {_sites = _sites + banks};
 	if (count _sites > 0) then
 		{
 		for "_i" from 0 to ((count _sites) - 1) do
@@ -191,12 +144,11 @@ if (_typeX == "LOG") then
 					_dataX = server getVariable _siteX;
 					_prestigeOPFOR = _dataX select 2;
 					_prestigeBLUFOR = _dataX select 3;
-					_potentials pushBack _siteX;
-					// if (_prestigeOPFOR + _prestigeBLUFOR < 90) then
-					// 	{
-					// 	_potentials pushBack _siteX;
-					// 	};
-					// }
+					if (_prestigeOPFOR + _prestigeBLUFOR < 90) then
+						{
+						_potentials pushBack _siteX;
+						};
+					}
 				else
 					{
 					if ([_pos,_posbase] call A3A_fnc_isTheSameIsland) then {_potentials pushBack _siteX};
@@ -220,9 +172,9 @@ if (_typeX == "LOG") then
 	else
 		{
 		_siteX = _potentials call BIS_fnc_selectRandom;
-		if (_siteX in citiesX) then {missionNamespace setVariable ["LOG_TYPE", "BOX", true]; [[_siteX],"LOG_Supplies"] remoteExec ["A3A_fnc_scheduler",2]};
-		if (_siteX in outposts) then {missionNamespace setVariable ["LOG_TYPE", "AMMO", true]; [[_siteX],"LOG_Ammo"] remoteExec ["A3A_fnc_scheduler",2]};
-		if (_siteX in banks) then {missionNamespace setVariable ["LOG_TYPE", "BANK", true]; [[_siteX],"LOG_Bank"] remoteExec ["A3A_fnc_scheduler",2]};
+		if (_siteX in citiesX) then {[[_siteX],"LOG_Supplies"] remoteExec ["A3A_fnc_scheduler",2]};
+		if (_siteX in outposts) then {[[_siteX],"LOG_Ammo"] remoteExec ["A3A_fnc_scheduler",2]};
+		if (_siteX in banks) then {[[_siteX],"LOG_Bank"] remoteExec ["A3A_fnc_scheduler",2]};
 		};
 	};
 if (_typeX == "RES") then
