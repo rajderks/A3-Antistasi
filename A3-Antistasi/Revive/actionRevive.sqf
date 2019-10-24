@@ -30,12 +30,12 @@ if ((not("FirstAidKit" in (items _medicX))) and !(_medicX canAdd "FirstAidKit"))
 	if (_inPlayerGroup) then {_medicX groupChat "I'm out of FA kits!"};
 	_healed
 	};
-if ((([_cured] call A3A_fnc_fatalWound)) and !([_medicX] call A3A_fnc_isMedic)) exitWith
-	{
-	if (_player) then {hint format ["%1 is injured by a fatal wound, only a medic can revive him",name _cured]};
-	if (_inPlayerGroup) then {_medicX groupChat format ["%1 is injured by a fatal wound, only a medic can revive him",name _cured]};
-	_healed
-	};
+// if ((([_cured] call A3A_fnc_fatalWound)) and !([_medicX] call A3A_fnc_isMedic)) exitWith
+// 	{
+// 	if (_player) then {hint format ["%1 is injured by a fatal wound, only a medic can revive him",name _cured]};
+// 	if (_inPlayerGroup) then {_medicX groupChat format ["%1 is injured by a fatal wound, only a medic can revive him",name _cured]};
+// 	_healed
+// 	};
 if !(isNull attachedTo _cured) exitWith
 	{
 	if (_player) then {hint format ["%1 is being carried or transported and you cannot heal him",name _cured]};
@@ -61,17 +61,17 @@ if (not("FirstAidKit" in (items _medicX))) then
 	};
 _timer = if ([_cured] call A3A_fnc_fatalWound) then
 			{
-			time + 35 + (random 20)
+			time + 7 + (random 10)
 			}
 		else
 			{
 			if ((!isMultiplayer and (isPlayer _cured)) or ([_medicX] call A3A_fnc_isMedic)) then
 				{
-				time + 10 + (random 5)
+				time + 2 + (random 5)
 				}
 			else
 				{
-				time + 15 + (random 10)
+				time + 5 + (random 7)
 				};
 			};
 
