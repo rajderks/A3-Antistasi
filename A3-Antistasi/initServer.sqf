@@ -18,6 +18,11 @@ if(isNil "serverID") then
 publicVariable "serverID";
 waitUntil {!isNil "serverID"};
 
+// Mission cancellation bools
+missionNamespace setVariable ["taskTerminateLogBox", false, true];
+missionNamespace setVariable ["taskTerminateLogAmmo", false, true];
+missionNamespace setVariable ["taskTerminateLogBank", false, true];
+
 //Load server config
 loadLastSave = if ("loadSave" call BIS_fnc_getParamValue == 1) then {true} else {false};
 gameMode = "gameMode" call BIS_fnc_getParamValue; publicVariable "gameMode";
@@ -35,6 +40,11 @@ memberDistance = "memberDistance" call BIS_fnc_getParamValue; publicVariable "me
 limitedFT = if ("allowFT" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "limitedFT";
 napalmEnabled = if ("napalmEnabled" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "napalmEnabled";
 teamSwitchDelay = "teamSwitchDelay" call BIS_fnc_getParamValue;
+
+// Override default params
+switchCom = false;
+limitedFT = false;
+teamSwitchDelay = false;
 
 //Load Campaign ID if resuming game
 if(loadLastSave) then {
