@@ -22,7 +22,7 @@ _distanceX = 500;
 
 {if ([_x,_distanceX] call A3A_fnc_enemyNearCheck) exitWith {_checkX = true}} forEach units _groupX;
 
-if (_checkX) exitWith {Hint "You cannot Fast Travel with enemies near the group"};
+// if (_checkX) exitWith {Hint "You cannot Fast Travel with enemies near the group"};
 
 {if ((vehicle _x!= _x) and ((isNull (driver vehicle _x)) or (!canMove vehicle _x) or (vehicle _x isKindOf "Boat"))) then
 	{
