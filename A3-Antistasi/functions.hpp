@@ -16,6 +16,7 @@ class A3A
 		class commsMP {file="commsMP.sqf";};
 		class createControls {file="createControls.sqf";};
 		class createOutpostsFIA {file="createOutpostsFIA.sqf";};
+        class debug {file="debug.sqf";};
 		class deleteControls {file="deleteControls.sqf";};
 		class destroyCity {file="destroyCity.sqf";};
 		class distanceUnits {file="distanceUnits.sqf";};
