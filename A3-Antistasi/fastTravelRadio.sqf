@@ -47,12 +47,12 @@ _positionTel = positionTel;
 if (count _positionTel > 0) then
 	{
 	_base = [_markersX, _positionTel] call BIS_Fnc_nearestPosition;
-	if (_checkForPlayer and ((_base != "SYND_HQ") and !(_base in airportsX))) exitWith {hint "Player groups are only allowed to Fast Travel to HQ or Airbases"};
+	// if (_checkForPlayer and ((_base != "SYND_HQ") and !(_base in airportsX))) exitWith {hint "Player groups are only allowed to Fast Travel to HQ or Airbases"};
 	if ((sidesX getVariable [_base,sideUnknown] == Occupants) or (sidesX getVariable [_base,sideUnknown] == Invaders)) exitWith {hint "You cannot Fast Travel to an enemy controlled zone"; openMap [false,false]};
 
-	//if (_base in outpostsFIA) exitWith {hint "You cannot Fast Travel to roadblocks and watchposts"; openMap [false,false]};
+	// if (_base in outpostsFIA) exitWith {hint "You cannot Fast Travel to roadblocks and watchposts"; openMap [false,false]};
 
-	if ([getMarkerPos _base,500] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding"; openMap [false,false]};
+	// if ([getMarkerPos _base,500] call A3A_fnc_enemyNearCheck) exitWith {Hint "You cannot Fast Travel to an area under attack or with enemies in the surrounding"; openMap [false,false]};
 
 	if (_positionTel distance getMarkerPos _base < 50) then
 		{
@@ -73,13 +73,13 @@ if (count _positionTel > 0) then
  				}
  			};
 		_exit = false;
-		if (limitedFT) then
-			{
-			_vehicles = [];
-			{if (vehicle _x != _x) then {_vehicles pushBackUnique (vehicle _x)}} forEach units _groupX;
-			{if ((vehicle _x) in _vehicles) exitWith {_checkForPlayer = true}} forEach playableUnits;
-			};
-		if (_checkForPlayer and ((_base != "SYND_HQ") and !(_base in airportsX))) exitWith {hint format ["%1 Fast Travel has been cancelled because some player has boarded their vehicle and the destination is not HQ or an Airbase",groupID _groupX]};
+		// if (limitedFT) then
+		// 	{
+		// 	_vehicles = [];
+		// 	{if (vehicle _x != _x) then {_vehicles pushBackUnique (vehicle _x)}} forEach units _groupX;
+		// 	{if ((vehicle _x) in _vehicles) exitWith {_checkForPlayer = true}} forEach playableUnits;
+		// 	};
+		// if (_checkForPlayer and ((_base != "SYND_HQ") and !(_base in airportsX))) exitWith {hint format ["%1 Fast Travel has been cancelled because some player has boarded their vehicle and the destination is not HQ or an Airbase",groupID _groupX]};
 		{
 		_unit = _x;
 		if ((!isPlayer _unit) or (_unit == player)) then
