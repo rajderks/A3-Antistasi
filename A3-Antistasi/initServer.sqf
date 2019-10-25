@@ -28,7 +28,7 @@ loadLastSave = if ("loadSave" call BIS_fnc_getParamValue == 1) then {true} else 
 gameMode = "gameMode" call BIS_fnc_getParamValue; publicVariable "gameMode";
 autoSave = if ("autoSave" call BIS_fnc_getParamValue == 1) then {true} else {false};
 membershipEnabled = if ("membership" call BIS_fnc_getParamValue == 1) then {true} else {false};
-switchCom = if ("switchComm" call BIS_fnc_getParamValue == 1) then {true} else {false};
+//switchCom = if ("switchComm" call BIS_fnc_getParamValue == 1) then {true} else {false};
 tkPunish = if ("tkPunish" call BIS_fnc_getParamValue == 1) then {true} else {false};
 distanceMission = "mRadius" call BIS_fnc_getParamValue; publicVariable "distanceMission";
 pvpEnabled = if ("allowPvP" call BIS_fnc_getParamValue == 1) then {true} else {false};
@@ -37,13 +37,13 @@ minWeaps = "unlockItem" call BIS_fnc_getParamValue; publicVariable "minWeaps";
 memberOnlyMagLimit = "MemberOnlyMagLimit" call BIS_fnc_getParamValue; publicVariable "memberOnlyMagLimit";
 civTraffic = "civTraffic" call BIS_fnc_getParamValue; publicVariable "civTraffic";
 memberDistance = "memberDistance" call BIS_fnc_getParamValue; publicVariable "memberDistance";
-limitedFT = if ("allowFT" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "limitedFT";
+//limitedFT = false; //if ("allowFT" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "limitedFT";
 napalmEnabled = if ("napalmEnabled" call BIS_fnc_getParamValue == 1) then {true} else {false}; publicVariable "napalmEnabled";
 teamSwitchDelay = "teamSwitchDelay" call BIS_fnc_getParamValue;
 
 // Override default params
-switchCom = false;
-limitedFT = false;
+switchCom = missionNamespace setVariable ["switchCom", false, true];
+limitedFT = missionNamespace setVariable ["limitedFT", false, true];
 teamSwitchDelay = false;
 
 //Load Campaign ID if resuming game
